@@ -2,15 +2,21 @@ package zzyzzy.hello.spring4.controller;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import zzyzzy.hello.spring4.model.Member;
+import zzyzzy.hello.spring4.service.MemberService;
 
 @Controller
 public class MemberController {
 
     private Logger logger = LogManager.getLogger(MemberController.class);
+
+    @Autowired
+    MemberService msrv;
 
     @RequestMapping(value = "/member/join", method = RequestMethod.GET)
     public String join(Model m) {
@@ -21,11 +27,14 @@ public class MemberController {
     }
 
     @RequestMapping(value = "/member/join", method = RequestMethod.POST)
-    public String joinok(Model m) {
-
+    public String joinok(Member m) {
         logger.info("member/joinok 호출!");
+        String viewName = "/member/fail";
 
-        return "redirect:/member/login";
+        if (msrv.saveMember(m))
+            viewName = "redirect:/member/login";  // 회원가입 처리
+
+        return viewName;
     }
 
     @RequestMapping(value = "/member/login", method = RequestMethod.GET)
