@@ -33,6 +33,18 @@ public class MemberServiceUnitTest {
         assertEquals(msrv.saveMember(m), true);
     }
 
+    @Test
+    public void loginMember() throws Exception {
+        Member m = new Member();
+        m.setUserid("abc123");
+        m.setPasswd("987xyz");
+
+        // assertEquals(테스트메서드, 검증값)
+        assertEquals(msrv.loginMember(m), true);
+    }
+
+
+
 }
 
 
