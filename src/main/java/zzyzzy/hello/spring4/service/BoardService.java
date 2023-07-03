@@ -7,5 +7,6 @@ import java.util.List;
 public interface BoardService {
 
     List<Board> readBoard(int cpg);
+    Board readOneBoard(String bno);
 
 }
