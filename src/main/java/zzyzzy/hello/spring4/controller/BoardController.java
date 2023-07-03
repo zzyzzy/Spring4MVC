@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import zzyzzy.hello.spring4.model.Board;
 import zzyzzy.hello.spring4.service.BoardService;
 
 @Controller
@@ -33,7 +34,11 @@ public class BoardController {
     }
 
     @GetMapping("/view")
-    public String view() {
+    public String view(Model m, String bno) {
+        logger.info("board/view 호출!!");
+        Board board = bsrv.readOneBoard(bno);
+
+        m.addAttribute("board", board);
 
         return "board/view.tiles";
     }
